@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block content %} 
+ <style>
+   .btn:hover{
+     transition: 0.2s;
+     background-color: black;
+   }
+  .btn{
+    width: 400px;
+    font-size: large;
+    border-radius: 10px;
+  }
+ </style>
+
+ <body id="img" class="containe-fluid" style="background-image: url('{% static 'images/registration1.jpg' %}')";>
+   
+        <!-- mask -->
+        <div id="intro" class="container-fluid d-flex align-items-center justify-content-center h-100">
+          <div class="row d-flex justify-content-center text-center">
+            <div >
+              <!-- heading -->
+              <br><br><br>
+              <h2 class="display-3 font-weight-bold white-text p-5 mb-2" style="color:whitesmoke;">Start Revising</h2>
+              
+              <!-- divider -->
+              <hr style="color:#ff5722 ;">
+
+              <!-- description -->
+              
+              <a  href="{% url 'programmes:niveaulist' %}"><button type="button" class="btn" style="color:#ff5722 ;"><b> Start Now </b></button></a>
+            </div>   
+          </div>
+        </div>
+      
+
+ </body>
+  
+         
+  {% endblock %}
+
+
+
+ 

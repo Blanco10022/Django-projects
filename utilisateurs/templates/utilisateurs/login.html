@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+ <style>
+    input[type="submit"].btn:hover {
+      opacity: 0.8;
+      background-color: black;
+    }
+    input[class="form-control"] {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 15px;
+    }
+    .imgcontainer {
+        text-align: center;
+        padding-left: 10px;
+        margin: 24px 0 12px 0;
+    }
+    img.avatar {
+        width: 20%;
+        border-radius: 50%;
+    }
+    
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #dec0c0;
+       
+    }
+    .btn{
+        background-color: #ff5722;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 22px;
+        cursor: pointer;
+        width: 25%;
+    }
+    center{
+        padding-top: 30px;
+    }
+    .logo{
+        padding-bottom: 5px;
+    }
+    header{
+     
+        padding-left: 15px;
+        font-size: 30px;
+        color: #ff5722;
+        border-radius: 22px;
+        height: 100px;
+        text-align: center;
+        padding-top: 20px;
+    }
+    
+      
+
+ </style>
+<body>
+   <header>
+     <p> WELCOME TO OUR LOGIN PAGE</p>
+
+    </header>
+<form action="" method="POST">
+{% csrf_token %}
+ <div class="imgcontainer">
+     <img src="{% static 'images/logo.png' %}" alt="Avatar" class="avatar">
+</div>
+<center>
+    <label for="usernane"><b></b></label>
+      <input class="form-control" type="text" placeholder="Enter Username" id="username" name="username"><br>
+    <label for="password"><b></b></label>
+      <input class="form-control" type="password" placeholder="Enter Password" id="password", name="password"><br>
+      <input type="submit" value="login" class="btn btn-primary"><br>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+</center>
+ </form>
+</body>
+{% endblock %}

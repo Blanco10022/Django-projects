@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+</style>
+
+
+<body style="background-color:#fffff0 ;">
+
+<section id="best-features" class="text-center">
+    <br>
+    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">DELETE {{lesson.nom}}</h2>
+    <!-- class row for description-->
+    <div class="row d-flex justify-content-center mb-4">
+      <!-- class column -->
+      <div class="col-md-8">
+    <!-- divider -->
+    <hr style="color:#ff5722;">
+      </div>
+    </div>
+</section>
+
+<h1 style="color:#ff5722;">Are you sure you want to delete ?</h1>
+
+   <form method="POST">
+       {% csrf_token %}
+       <div class="row">
+        <div class="col-md-4">
+                <input type="submit" value="DELETE" class="btn btn-danger btn-block">
+            </div>
+            <div class="col-md-4">
+       <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=lesson.matiere.slug niveau=lesson.niveau.slug %}" class="btn btn-warning btn-block">Cancel operation</a>
+    </div>
+</div>
+</form>
+</body>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+<style>
+  button{
+    border-radius: 6px;
+    border: 0;
+    
+  }
+  button:hover{
+    background-color:gray;
+    opacity: 4;
+
+  }
+  body{
+    background-color: #FFFFF0;
+  }
+  
+</style>
+<body >
+
+ <section class="text-center">
+        <h2 class="mb-0 mt-5 font-weight-bold" style="color:#ff5722;">Course Details</h2>
+        <div class="row d-flex justify-content-center mb-3">
+          <blockquote class="blockquote mt-0">
+        <footer class="blockquote-footer">The course {{ lesson.nom }} was created by  {{ lesson.creer_par }}</cite></footer>
+        </blockquote>
+       </div>
+       <!-- image -->
+    <div class="row d-flex justify-content-center mb-3">
+        <div >
+              <image>
+                  <img src="{{lesson.image.url}}" >
+              </image>
+        </div>
+      </div>
+        <!-- download cards -->
+    <div class="row d-flex justify-content-center ">
+        <!-- download answers -->
+                  <div class="col-md-4 mb-4 mt-4">
+                    <div class="card box-shadow-hover">
+                      <div class="card-body">
+                        <h5 class="card-title">Download Answer</h5>
+                        {% if lesson.fpe %}
+                        <a href="{{lesson.fpe.url}}" download>
+                        <button type="button" class="button-les"><span>Get Files</span></button>
+                        </a>
+                        {% else %}
+                        <p class="card-text" > No Answer available</p>
+                        {% endif %}
+  
+                      </div>
+                    </div>
+                  </div>
+
+                    <!-- download questions -->
+                <div class="col-md-4 mb-4 mt-4">
+                        <div class="card box-shadow-hover">
+                          <div class="card-body">
+                            <h5 class="card-title">Download paper</h5>
+                            {% if lesson.pdf %}
+                            <a href="{{lesson.pdf.url}}" download>
+                            <button type="button" class="button-les"><span>Get Files</span></button>
+                            </a>
+                            {% else %}
+                            <p class="card-text">pdf not available</p>
+                            {%endif%}
+      
+                          </div>
+                        </div>
+                      </div>
+                </section>
+ <section>
+                       <!-- update and delete button -->
+          <div class="row  justify-content-center mb-3 mt-3">
+        {% if user.userprofileinfo.user_type == 'teacher' or user.is_superuser %}
+        <a href="{% url 'programmes:lessonupdate' niveau=lesson.niveau.slug matiere=lesson.matiere.slug slug=lesson.slug %}"class="btn btn-warning" style="background-color:red;"> Update course</a>
+          </div>
+        <div class="row justify-content-center mb-3 mt-3">
+         <a href="{% url 'programmes:lessondelete' niveau=lesson.niveau.slug matiere=lesson.matiere.slug slug=lesson.slug %}"class="btn btn-warning" style="background-color:red;"> Delete course</a>
+        </div>
+        {% endif %}
+</section>
+
+        <hr class="my-5" style="color:#ff5722;">
+
+        <!-- Comments section -->
+<section >
+        <h2 class="mb-4 mt-5 font-weight-bold" style="color:#ff5722;">Questions And Comment</h2>
+        <h4 class="mt-2 font-weight-bold" style="color:#ff5722;">Post your comment or question below:</h4>
+        <br><br>
+        <div class="container row">
+          <div class="col-md-6">
+                                  <form method="post">
+                                        <div class="form-group">
+                                        {% csrf_token %}
+                                        {{form|crispy}}
+                                        <input type="submit" name="form" value="Add Comment" class="btn btn-primary btn-sm">
+                                        </div>
+                                  </form>
+    
+          </div>
+        </div>
+        <div class="row">
+
+        <h4>Post your comments below.</h4>
+
+        <form  method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                        {{ form.as_p }}
+                        <input type="submit" name="form" value="comment" class="btn btn-primary btn-sm">
+
+                </div>
+        </form>
+
+        {% for comment in lesson.comments.all  %}
+        <div class="col-md-8 mt-2 mb-2">
+                <div class="media border p-3">
+                
+                    <div class="media-body">
+                <h4> {{ comment.auteur }} <small> <i> posted on {{ comment.date_added }}</i></small></h4>
+                <p>{{ comment.corps }}</p>
+                {% for reponse in comment.reponses.all  %}
+                <div class="media p-3">
+                        
+                <div class="media-body">
+                         <h5> {{ reponse.auteur }} <small> <i> posted on {{ reponse.date_added }}</i></small></h5>
+                         <p>{{ reponse.corps }}</p>
+
+                        </div>
+                </div>
+    {% endfor %}
+
+      <!-- form to post reply -->
+      <form method="POST">
+        <input type="hidden" name="comment.id" value="{{comment.id}}">
+        <input type="hidden" name="comment.comm_name" value="{{comment.comm_nom}}">
+        {% csrf_token %}
+        {{form2.as_p}}
+        <input type="submit" name="form2" value="Add Reply" class="btn btn-warning btn-sm">
+  </form>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+
+</section>
+
+{%endblock%}
+</body>
+            

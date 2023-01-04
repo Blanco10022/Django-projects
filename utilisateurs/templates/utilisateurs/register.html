@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+ {% block content %}
+ <style>
+    #img{
+      background-attachment:fixed;
+      background-repeat: no-repeat;
+      position: fix;
+    }
+    .btn{
+       background-color: #ff5722;
+
+    }
+    body{
+       background-color: #fffff0;
+    }
+ </style>
+ <body;>
+        
+ <header>
+    <section id="best-features" class="text-center">
+       <br>
+       <br>
+       <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Welcome To Our Reistration Page</h2>
+       <br>
+    </section>
+      </header>
+      
+     <div class="col-md-12">
+     {% if registered %}
+        <h2>You are already registered</h2>
+     {% endif %}   
+         <form method="POST" action="">
+            {% csrf_token %}
+         {{ form1|crispy }}
+         {{ form2|crispy }}
+        <input type="submit" class="btn" value="Register">
+
+         </form>
+     </div>
+ </div>
+      </body>
+ {% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+
+<body style="background-color:#fffff0 ;">
+<section id="best-features" class="text-center">
+    <br> 
+    <h2 class="mb-5 font-weight-bold" style="color:#ff5722;">Create a Course</h2>
+</section>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+   <form method="POST">
+       {% csrf_token %}
+       {{ form|crispy }}
+       <input class="btn btn-success btn-lg btn-block" type="submit" value="Confirm Creation">
+    </div>
+  </form>
+</body>
+{% endblock %}
